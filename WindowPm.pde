@@ -22,6 +22,8 @@ float centerX=300;
 float centerY=300;
 float radius=150;
 
+int saisei=0;
+
 
 float cursor_size = 15;
 float object_size = 60;
@@ -42,6 +44,7 @@ void setup()
   size(displayWidth,displayHeight);
   noStroke();
   fill(0);
+  
   
   frameRate(frame);
   img = loadImage("georgia-map.jpeg");
@@ -76,7 +79,7 @@ void draw()
      markarX= map(tobj.getScreenX(width),0,  width, width, 0);
      markarY=tobj.getScreenY(height);
      translate(markarX,tobj.getScreenY(height));
-     println(tobj.getScreenX(width),tobj.getScreenY(height));
+     //println(tobj.getScreenX(width),tobj.getScreenY(height));
      rotate(tobj.getAngle());
      reacTRota = radians(tobj.getAngleDegrees());
      ellipse(obj_size/2,-obj_size/2,obj_size,obj_size);
@@ -199,29 +202,37 @@ if( pb < 72 && 288 < b ){
  
   if(distance_b<200){
     image(myMovie, 0,0);
+    saisei=1;
     myMovie.play();
     myMovie.loop();
+  }else{
+    saisei=0;
   }
   
   //if(distance_r<50){
-    //image(img2, 0, 0, 900, 700);
+  //  image(img2, 0, 0, 900, 700);
   //}
   //if(distance_g<150){
   //  image(img, 0, 0, 900, 600);
   //}
   if(distance_w<50){
     image(myMovie2, 0,0);
+    saisei=1;
     myMovie2.play();
     myMovie2.loop();
-    
+  }else{
+    saisei=0;
   }
 }
 void syoki(){
   
   
   fill(0,0,255);                      
-  fill(0);                  
-  rect(300,300,50,50);
+  fill(0);
+  if(saisei==0){
+    rect(300,300,50,50);
+  }
+  
   
   
   //fill(255,0,0);
@@ -240,7 +251,9 @@ void syoki(){
   
   fill(255,255,255);
   fill(0);
-  rect(1000,650,50,50);
+  if(saisei==0){
+    rect(1000,650,50,50);
+  }
 }
 void movieEvent(Movie m) {
   m.read();
