@@ -22,7 +22,7 @@ float centerX=300;
 float centerY=300;
 float radius=150;
 
-int saisei=0;
+int saisei=1;
 
 
 float cursor_size = 15;
@@ -51,7 +51,7 @@ void setup()
   myMovie = new Movie(this, "Boardwalk - 63740 (2).mp4");
   myMovie2 = new Movie(this, "Vines - 31527 (1).mp4");
   if (!callback) {
-    frameRate(60);
+    //frameRate(60);
     loop();
   } else noLoop(); 
   
@@ -69,6 +69,7 @@ void draw()
   textFont(font,18*scale_factor);
   float obj_size = object_size*scale_factor; 
   float cur_size = cursor_size*scale_factor; 
+  
    
   ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
   for (int i=0;i<tuioObjectList.size();i++) {
@@ -89,6 +90,7 @@ void draw()
    }
    douga();
    syoki();
+   
 
 }
 
@@ -160,6 +162,7 @@ void refresh(TuioTime frameTime) {
   if (callback) redraw();
 }
 void douga(){
+  saisei=1;
   float distance_b=dist(markarX,markarY,300,300);  
   //float distance_r=dist(mouseX,mouseY,300,100);  
   //float distance_g=dist(markarX,markarY,550,150);  
@@ -202,11 +205,16 @@ if( pb < 72 && 288 < b ){
  
   if(distance_b<200){
     image(myMovie, 0,0);
-    saisei=1;
+    saisei=2;
     myMovie.play();
     myMovie.loop();
+  }else if(distance_w<50){
+    image(myMovie2, 0,0);
+    saisei=3;
+    myMovie2.play();
+    myMovie2.loop();
   }else{
-    saisei=0;
+    myMovie.pause();
   }
   
   //if(distance_r<50){
@@ -215,24 +223,14 @@ if( pb < 72 && 288 < b ){
   //if(distance_g<150){
   //  image(img, 0, 0, 900, 600);
   //}
-  if(distance_w<50){
-    image(myMovie2, 0,0);
-    saisei=1;
-    myMovie2.play();
-    myMovie2.loop();
-  }else{
-    saisei=0;
-  }
 }
 void syoki(){
   
-  
-  fill(0,0,255);                      
-  fill(0);
-  if(saisei==0){
-    rect(300,300,50,50);
-  }
-  
+  if (saisei==1) {
+    fill(0);
+    rect(300, 300, 50, 50);
+    rect(1000, 650, 50, 50);
+  } 
   
   
   //fill(255,0,0);
@@ -249,11 +247,8 @@ void syoki(){
   //rect(700,100,50,50);
   
   
-  fill(255,255,255);
-  fill(0);
-  if(saisei==0){
-    rect(1000,650,50,50);
-  }
+  //fill(255,255,255);
+  //fill(0);
 }
 void movieEvent(Movie m) {
   m.read();
