@@ -2,7 +2,7 @@ import TUIO.*;
 import processing.video.*;
 Movie myMovie;
 Movie myMovie2;
-PImage img,img2;
+PImage img,img2,img3;
 int frame = 60;
 float x;
 float y;
@@ -48,6 +48,8 @@ void setup()
   
   frameRate(frame);
   img = loadImage("georgia-map.jpeg");
+  img2 = loadImage("red_wine.png");
+  img3 = loadImage("wine-red-white.png");
   myMovie = new Movie(this, "Boardwalk - 63740 (2).mp4");
   myMovie2 = new Movie(this, "Vines - 31527 (1).mp4");
   if (!callback) {
@@ -228,8 +230,8 @@ void syoki(){
   
   if (saisei==1) {
     fill(0);
-    rect(300, 300, 50, 50);
-    rect(1000, 650, 50, 50);
+    image(img2, 300, 300, 100, 100);
+    image(img3, 1000, 650, 100, 100);
   } 
   
   
