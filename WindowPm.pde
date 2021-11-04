@@ -2,7 +2,7 @@ import TUIO.*;
 import processing.video.*;
 Movie myMovie;
 Movie myMovie2;
-PImage img,img2,img3;
+PImage img,img2,img3,img4;
 int frame = 60;
 float x;
 float y;
@@ -50,6 +50,7 @@ void setup()
   img = loadImage("georgia-map.jpeg");
   img2 = loadImage("red_wine.png");
   img3 = loadImage("wine-red-white.png");
+  img4 = loadImage("carrycase_man.png");
   myMovie = new Movie(this, "Boardwalk - 63740 (2).mp4");
   myMovie2 = new Movie(this, "Vines - 31527 (1).mp4");
   if (!callback) {
@@ -85,7 +86,7 @@ void draw()
      //println(tobj.getScreenX(width),tobj.getScreenY(height));
      rotate(tobj.getAngle());
      reacTRota = radians(tobj.getAngleDegrees());
-     ellipse(obj_size/2,-obj_size/2,obj_size,obj_size);
+     image(img4,obj_size/2,-obj_size/2,obj_size,obj_size);
      popMatrix();
      fill(255);
      //text(""+tobj.getSymbolID(), tobj.getScreenX(width), tobj.getScreenY(height));
