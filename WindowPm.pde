@@ -30,6 +30,9 @@ boolean callback = true;
 float pb = 0.0;
 float reacTRota;
 
+float[] xpos = new float[30];
+float[] ypos = new float[30];
+
 
 void setup()
 {
@@ -37,10 +40,15 @@ void setup()
   size(displayWidth, displayHeight);
   noStroke();
   fill(0);
+  
+  for(int i = 0; i <xpos.length; i++){
+    xpos[i] = 0;
+    ypos[i] = 0;
+  }
 
   frameRate(frame);
   images = new PImage[6];
-  images[0] = loadImage("georgia-map.jpeg");
+  images[0] = loadImage("Tbilisi_map.jpeg");
   images[1] = loadImage("red_wine.png");
   images[2] = loadImage("wine-red-white.png");
   images[3] = loadImage("carrycase_man.png");
@@ -70,6 +78,18 @@ void draw()
   textFont(font, 18*scale_factor);
   float obj_size = object_size*scale_factor;
   float cur_size = cursor_size*scale_factor;
+  
+  for(int i = 0; i <xpos.length-1; i++){
+    xpos[i] = xpos[i + 1];
+    ypos[i] = ypos[i + 1];
+  }
+  xpos[xpos.length - 1] = markarX;
+  ypos[ypos.length - 1] = markarY;
+  for(int i = 0; i <xpos.length; i++){
+    noStroke();
+    fill(255 - i*5);
+    ellipse(xpos[i]+70.0 , ypos[i],i+10,i+10);
+  }
 
 
   ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
@@ -94,6 +114,8 @@ void draw()
     popMatrix();
     fill(255);
   }
+  
+
   douga();
   syoki();
 }
