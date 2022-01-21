@@ -19,7 +19,8 @@ float centerY=300;
 float radius=150;
 
 float cursor_size = 15;
-float object_size = 60;
+float object_size = 70;
+float point_size = 100;
 float table_size = 760;
 float scale_factor = 1;
 PFont font;
@@ -30,36 +31,51 @@ boolean callback = true;
 float pb = 0.0;
 float reacTRota;
 
-float[] xpos = new float[20];
-float[] ypos = new float[20];
+////////////////////////
+float x_1 = 125;
+float y_1 = 240;
+float x_2 = 125;
+float y_2 = 395;
+float x_3 = 125;
+float y_3 = 540;
+float x_4 = 125;
+float y_4 = 685;
+float x_5 = 635;
+float y_5 = 330;
+float x_6 = 830;
+float y_6 = 680;
+float x_tuto = 1015;
+float y_tuto = 120;
+
+float marker_range = 50;
+/////////////////////////
 
 
 void setup()
 {
   noCursor();
   size(displayWidth, displayHeight);
+  //size(1900,1000);
   noStroke();
   fill(0);
-  
-  for(int i = 0; i <xpos.length; i++){
-    xpos[i] = 0;
-    ypos[i] = 0;
-  }
+
+
 
   frameRate(frame);
-  images = new PImage[7];
-  images[0] = loadImage("Tbilisi_map (1).jpeg");
-  images[1] = loadImage("red_wine.png");
-  images[2] = loadImage("wine-red-white.png");
-  images[3] = loadImage("carrycase_man.png");
-  images[4] = loadImage("travel_woman.png");
-  images[5] = loadImage("carrycase_obaasan.png");
-  images[6] = loadImage("usagi.png");
-  movies = new Movie[4];
-  movies[0] = new Movie(this, "Boardwalk - 63740 (2).mp4");
-  movies[1] = new Movie(this, "Vines - 31527 (1).mp4");
-  movies[2] = new Movie(this, "istockphoto-1331432006-640_adpp_is_SparkVideo.mp4");
-  movies[3] = new Movie(this, "Seoul - 21116.mp4");
+  images = new PImage[3];
+  images[0] = loadImage("Tbilisi_map (2).jpeg");
+
+  images[1] = loadImage("funa.png");
+  images[2] = loadImage("rabbit_icon.png");
+
+  movies = new Movie[7];
+  movies[0] = new Movie(this, "grape1.mp4");
+  movies[1] = new Movie(this, "Seoul - 21116.mp4");
+  movies[2] = new Movie(this, "Seoul - 21116.mp4");
+  movies[3] = new Movie(this, "city.mp4");
+  movies[4] = new Movie(this, "restaurant.mp4");
+  movies[5] = new Movie(this, "Seoul - 21116.mp4");
+  movies[6] = new Movie(this, "Seoul - 21116.mp4");
 
   if (!callback) {
     //frameRate(60);
@@ -72,25 +88,14 @@ void setup()
   tuioClient  = new TuioProcessing(this);
 }
 
-
+////////////////////////
 void draw()
 {
   image(images[0], 0, 0, width, height);
   textFont(font, 18*scale_factor);
   float obj_size = object_size*scale_factor;
   float cur_size = cursor_size*scale_factor;
-  
-  for(int i = 0; i <xpos.length-1; i++){
-    xpos[i] = xpos[i + 1];
-    ypos[i] = ypos[i + 1];
-  }
-  xpos[xpos.length - 1] = markarX;
-  ypos[ypos.length - 1] = markarY;
-  for(int i = 0; i <xpos.length; i++){
-    //noStroke();
-    //fill(255 - i*5);
-    image(images[6],xpos[i]+70.0 , ypos[i],i+10,i+10);
-  }
+
 
 
   ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
@@ -105,54 +110,72 @@ void draw()
     //rotate(tobj.getAngle());
     reacTRota = radians(tobj.getAngleDegrees());
     float b = map(reacTRota, 0, 6.2832, 0, 360);
-    if (0 < b &&  b < 90 ) {
-      image(images[6], obj_size/2, -obj_size/2, obj_size, obj_size);
-    } else if (90 < b && b < 180) {
-      image(images[4], obj_size/2, -obj_size/2, obj_size, obj_size);
-    } else if (180 < b && b < 270) {
-      image(images[5], obj_size/2, -obj_size/2, obj_size, obj_size);
-    }else if (270 < b && b < 360) {
-      image(images[3], obj_size/2, -obj_size/2, obj_size, obj_size);
-    }
+    if (0 < b &&  b < 180 ) {
+      image(images[1], obj_size/2, -obj_size/2, obj_size, obj_size);
+    } else if ( 180< b && b < 360) {
+      image(images[2], obj_size/2, -obj_size/2, obj_size, obj_size);
+    } 
     popMatrix();
     fill(255);
   }
-  
 
   douga();
   syoki();
 }
 
+///////////////////////
 // called at the end of each TUIO frame
 void refresh(TuioTime frameTime) {
   if (verbose) println("frame #"+frameTime.getFrameID()+" ("+frameTime.getTotalMilliseconds()+")");
   if (callback) redraw();
 }
-void douga() {
-  float distance_b=dist(markarX, markarY, 300, 300);
-  float distance_r=dist(markarX, markarY, 800, 300);
-  float distance_g=dist(markarX, markarY, 600, 700);
-  //float distance_y=dist(mouseX,mouseY,750,150);
-  float distance_w=dist(markarX, markarY, 1000, 650);
 
-  if (distance_b<100) {
+
+///////////////////////
+void douga() {
+
+  float distance_1=dist(markarX, markarY, x_1, y_1);
+  float distance_2=dist(markarX, markarY, x_2, y_2);
+  float distance_3=dist(markarX, markarY, x_3, y_3);
+  float distance_4=dist(markarX, markarY, x_4, y_4);
+  float distance_5=dist(markarX, markarY, x_5, y_5);
+  float distance_6=dist(markarX, markarY, x_6, y_6);
+  float distance_tuto=dist(markarX, markarY, x_tuto, y_tuto);
+
+  if (distance_1<marker_range) {
     if (movieIndex != 0) {
       movieIndex = 0;
+     
       movies[movieIndex].loop();
     }
-  } else if (distance_w<100) {
+  } else if (distance_2<marker_range) {
     if (movieIndex != 1) {
       movieIndex = 1;
       movies[movieIndex].loop();
     }
-  } else if (distance_r<100) {
+  } else if (distance_3<marker_range) {
     if (movieIndex != 2) {
       movieIndex = 2;
       movies[movieIndex].loop();
     }
-  } else if (distance_g<100) {
+  } else if (distance_4<marker_range) {
     if (movieIndex != 3) {
       movieIndex = 3;
+      movies[movieIndex].loop();
+    }
+  } else if (distance_5<marker_range) {
+    if (movieIndex != 4) {
+      movieIndex = 4;
+      movies[movieIndex].loop();
+    }
+  } else if (distance_6<marker_range) {
+    if (movieIndex != 5) {
+      movieIndex = 5;
+      movies[movieIndex].loop();
+    }
+  } else if (distance_tuto<marker_range) {
+    if (movieIndex != 6) {
+      movieIndex = 6;
       movies[movieIndex].loop();
     }
   } else {
@@ -162,21 +185,33 @@ void douga() {
     }
   }
 
-    if (movieIndex != -1) {
-      image(movies[movieIndex], 0, 0);
-    }
+  if (movieIndex != -1) {
+    image(movies[movieIndex], 0, 0);
+  }
+}
 
+//////////////////////
+void syoki() {
+  if (movieIndex == -1) {
+    fill(0, 0, 0, 100);
+    //rectMode(CENTER);
+    //rect(x_1, y_1-marker_range, point_size, point_size);
+    //rect(x_2, y_2-marker_range, point_size, point_size);
+    //rect(x_3, y_3-marker_range, point_size, point_size);
+    //rect(x_4, y_4-marker_range, point_size, point_size);
+    //rect(x_5, y_5-marker_range, point_size, point_size);
+    //rect(x_6, y_6-marker_range, point_size, point_size);
+    //rect(x_tuto, y_tuto-marker_range, point_size, point_size);
+    //image(images[1], x_1, y_1, point_size, point_size);
+    //image(images[2], x_2, y_2, point_size, point_size);
+    //image(images[3], x_3, y_3, point_size, point_size);
+    //image(images[4], x_4, y_4-marker_range, point_size, point_size);
+    //image(images[5], x_5, y_5-marker_range, point_size, point_size);
+    //image(images[6], x_6, y_6-marker_range, point_size, point_size);
+    //image(images[7], x_tuto, y_tuto, point_size+15, point_size);
   }
-
-  void syoki() {
-    if (movieIndex == -1) {
-      fill(0);
-      image(images[1], 270, 270, 100, 100);
-      image(images[2], 1000, 650, 100, 100);
-      rect(800, 300, 100, 100);
-      rect(600, 700, 100, 100);
-    }
-  }
-  void movieEvent(Movie m) {
-    m.read();
-  }
+}
+/////////////////////
+void movieEvent(Movie m) {
+  m.read();
+}
