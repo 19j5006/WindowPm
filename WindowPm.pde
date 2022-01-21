@@ -30,8 +30,8 @@ boolean callback = true;
 float pb = 0.0;
 float reacTRota;
 
-float[] xpos = new float[30];
-float[] ypos = new float[30];
+float[] xpos = new float[20];
+float[] ypos = new float[20];
 
 
 void setup()
@@ -47,13 +47,14 @@ void setup()
   }
 
   frameRate(frame);
-  images = new PImage[6];
-  images[0] = loadImage("Tbilisi_map.jpeg");
+  images = new PImage[7];
+  images[0] = loadImage("Tbilisi_map (1).jpeg");
   images[1] = loadImage("red_wine.png");
   images[2] = loadImage("wine-red-white.png");
   images[3] = loadImage("carrycase_man.png");
   images[4] = loadImage("travel_woman.png");
   images[5] = loadImage("carrycase_obaasan.png");
+  images[6] = loadImage("usagi.png");
   movies = new Movie[4];
   movies[0] = new Movie(this, "Boardwalk - 63740 (2).mp4");
   movies[1] = new Movie(this, "Vines - 31527 (1).mp4");
@@ -74,7 +75,7 @@ void setup()
 
 void draw()
 {
-  image(images[0], 0, 0, 1900, 1100);
+  image(images[0], 0, 0, width, height);
   textFont(font, 18*scale_factor);
   float obj_size = object_size*scale_factor;
   float cur_size = cursor_size*scale_factor;
@@ -86,9 +87,9 @@ void draw()
   xpos[xpos.length - 1] = markarX;
   ypos[ypos.length - 1] = markarY;
   for(int i = 0; i <xpos.length; i++){
-    noStroke();
-    fill(255 - i*5);
-    ellipse(xpos[i]+70.0 , ypos[i],i+10,i+10);
+    //noStroke();
+    //fill(255 - i*5);
+    image(images[6],xpos[i]+70.0 , ypos[i],i+10,i+10);
   }
 
 
@@ -104,12 +105,14 @@ void draw()
     //rotate(tobj.getAngle());
     reacTRota = radians(tobj.getAngleDegrees());
     float b = map(reacTRota, 0, 6.2832, 0, 360);
-    if (0 < b &&  b < 120 ) {
-      image(images[3], obj_size/2, -obj_size/2, obj_size, obj_size);
-    } else if (120 < b && b < 240) {
+    if (0 < b &&  b < 90 ) {
+      image(images[6], obj_size/2, -obj_size/2, obj_size, obj_size);
+    } else if (90 < b && b < 180) {
       image(images[4], obj_size/2, -obj_size/2, obj_size, obj_size);
-    } else if (240 < b && b < 360) {
+    } else if (180 < b && b < 270) {
       image(images[5], obj_size/2, -obj_size/2, obj_size, obj_size);
+    }else if (270 < b && b < 360) {
+      image(images[3], obj_size/2, -obj_size/2, obj_size, obj_size);
     }
     popMatrix();
     fill(255);
