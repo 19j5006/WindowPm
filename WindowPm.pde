@@ -1,5 +1,6 @@
 import TUIO.*;
 import processing.video.*;
+import codeanticode.syphon.*;
 
 
 Movie[] movies;
@@ -9,7 +10,9 @@ int frame = 60;
 float x;
 float y;
 color c1 = color(255, 255, 255);
+
 TuioProcessing tuioClient;
+SyphonServer server;
 
 float markarX=0;
 float markarY=0;
@@ -20,7 +23,7 @@ float centerY=300;
 float radius=150;
 
 float cursor_size = 15;
-float object_size = 70;
+float object_size = 90;
 float point_size = 100;
 float table_size = 760;
 float scale_factor = 1;
@@ -33,34 +36,33 @@ float pb = 0.0;
 float reacTRota;
 
 ////////////////////////
-float x_1 = 125;
+float x_1 = 65;
 float y_1 = 240;
-float x_2 = 125;
+float x_2 = 65;
 float y_2 = 395;
-float x_3 = 125;
+float x_3 = 65;
 float y_3 = 540;
-float x_4 = 125;
+float x_4 = 65;
 float y_4 = 685;
-float x_5 = 635;
+float x_5 = 595;
 float y_5 = 330;
-float x_6 = 830;
+float x_6 = 790;
 float y_6 = 680;
-float x_tuto = 1015;
+float x_tuto = 955;
 float y_tuto = 120;
 
-float marker_range = 50;
+float marker_range = point_size / 2;
 /////////////////////////
 
 
 void setup()
 {
   noCursor();
-  size(displayWidth, displayHeight);
-  //size(1900,1000);
+  size(displayWidth, displayHeight, P3D);
   noStroke();
   fill(0);
 
-
+  server = new SyphonServer(this, "Processing Syphon");
 
   frameRate(frame);
   images = new PImage[3];
@@ -70,18 +72,18 @@ void setup()
   images[2] = loadImage("rabbit_icon.png");
 
   movies = new Movie[7];
-  movies[0] = new Movie(this, "grape1.mp4");
+  movies[0] = new Movie(this, "grape2-6.mp4");
   movies[1] = new Movie(this, "Seoul - 21116.mp4");
   movies[2] = new Movie(this, "Seoul - 21116.mp4");
   movies[3] = new Movie(this, "city.mp4");
   movies[4] = new Movie(this, "restaurant.mp4");
-  movies[5] = new Movie(this, "Seoul - 21116.mp4");
+  movies[5] = new Movie(this, "taki.mp4");
   movies[6] = new Movie(this, "Seoul - 21116.mp4");
 
-  if (!callback) {
-    //frameRate(60);
-    loop();
-  } else noLoop();
+  //if (!callback) {
+  //  //frameRate(60);
+  //  loop();
+  //} else noLoop();
 
   font = createFont("Arial", 18);
   scale_factor = height/table_size;
@@ -111,17 +113,20 @@ void draw()
     //rotate(tobj.getAngle());
     reacTRota = radians(tobj.getAngleDegrees());
     float b = map(reacTRota, 0, 6.2832, 0, 360);
-    if (0 < b &&  b < 180 ) {
+    if (0 < b &&  b < 120 ) {
       image(images[1], obj_size/2, -obj_size/2, obj_size, obj_size);
-    } else if ( 180< b && b < 360) {
+    } else if ( 120< b && b < 220) {
       image(images[2], obj_size/2, -obj_size/2, obj_size, obj_size);
-    } 
+    }else if ( 220< b && b < 360) {
+      image(images[1], obj_size/2, -obj_size/2, obj_size, obj_size);
+    }
     popMatrix();
     fill(255);
   }
 
   douga();
   syoki();
+  server.sendScreen();
 }
 
 ///////////////////////
@@ -146,7 +151,7 @@ void douga() {
   if (distance_1<marker_range) {
     if (movieIndex != 0) {
       movieIndex = 0;
-     
+
       movies[movieIndex].loop();
     }
   } else if (distance_2<marker_range) {
