@@ -107,9 +107,12 @@ void draw()
     stroke(0);
     fill(0, 0, 0);
     pushMatrix();
-    markarX= map(tobj.getScreenX(width), 0, width, width, 0);
-    markarY=tobj.getScreenY(height);
-    translate(markarX, tobj.getScreenY(height));
+    
+    markarX = map(tobj.getScreenX(width), minX, maxX, width, 0);
+    markarY = map(tobj.getScreenY(height), minY, maxY, 0, height);
+    
+    
+    translate(markarX, markarY);
     //rotate(tobj.getAngle());
     reacTRota = radians(tobj.getAngleDegrees());
     float b = map(reacTRota, 0, 6.2832, 0, 360);
@@ -117,7 +120,7 @@ void draw()
       image(images[1], obj_size/2, -obj_size/2, obj_size, obj_size);
     } else if ( 120< b && b < 220) {
       image(images[2], obj_size/2, -obj_size/2, obj_size, obj_size);
-    }else if ( 220< b && b < 360) {
+    } else if ( 220< b && b < 360) {
       image(images[1], obj_size/2, -obj_size/2, obj_size, obj_size);
     }
     popMatrix();
@@ -151,7 +154,6 @@ void douga() {
   if (distance_1<marker_range) {
     if (movieIndex != 0) {
       movieIndex = 0;
-
       movies[movieIndex].loop();
     }
   } else if (distance_2<marker_range) {
