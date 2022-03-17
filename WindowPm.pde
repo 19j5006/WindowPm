@@ -36,20 +36,20 @@ float pb = 0.0;
 float reacTRota;
 
 ////////////////////////
-float x_1 = 65;
-float y_1 = 240;
-float x_2 = 65;
-float y_2 = 395;
-float x_3 = 65;
-float y_3 = 540;
-float x_4 = 65;
-float y_4 = 685;
-float x_5 = 595;
-float y_5 = 330;
-float x_6 = 790;
-float y_6 = 680;
-float x_tuto = 955;
-float y_tuto = 120;
+float x_1 = 125;
+float y_1 = 300;
+float x_2 = 125;
+float y_2 = 475;
+float x_3 = 125;
+float y_3 = 650;
+float x_4 = 125;
+float y_4 = 825;
+float x_5 = 840;
+float y_5 = 385;
+float x_6 = 1090;
+float y_6 = 810;
+float x_tuto = 1320;
+float y_tuto = 140;
 
 float marker_range = point_size / 2;
 /////////////////////////
@@ -58,7 +58,7 @@ float marker_range = point_size / 2;
 void setup()
 {
   noCursor();
-  size(displayWidth, displayHeight, P3D);
+  size(1920, 1080, P3D);
   noStroke();
   fill(0);
 
@@ -72,13 +72,13 @@ void setup()
   images[2] = loadImage("rabbit_icon.png");
 
   movies = new Movie[7];
-  movies[0] = new Movie(this, "grape2-6.mp4");
-  movies[1] = new Movie(this, "Seoul - 21116.mp4");
-  movies[2] = new Movie(this, "Seoul - 21116.mp4");
-  movies[3] = new Movie(this, "city.mp4");
-  movies[4] = new Movie(this, "restaurant.mp4");
-  movies[5] = new Movie(this, "taki.mp4");
-  movies[6] = new Movie(this, "Seoul - 21116.mp4");
+  movies[0] = new Movie(this, "grape.mp4");
+  movies[1] = new Movie(this, "supura.mp4");
+  movies[2] = new Movie(this, "wine.mp4");
+  movies[3] = new Movie(this, "kyoukai.mp4");
+  movies[4] = new Movie(this, "city.mp4");
+  movies[5] = new Movie(this, "restaurant.mp4");
+  movies[6] = new Movie(this, "supura.mp4");
 
   //if (!callback) {
   //  //frameRate(60);
@@ -107,11 +107,11 @@ void draw()
     stroke(0);
     fill(0, 0, 0);
     pushMatrix();
-    
+
     markarX = map(tobj.getScreenX(width), minX, maxX, width, 0);
     markarY = map(tobj.getScreenY(height), minY, maxY, 0, height);
-    
-    
+
+
     translate(markarX, markarY);
     //rotate(tobj.getAngle());
     reacTRota = radians(tobj.getAngleDegrees());
@@ -208,11 +208,11 @@ void syoki() {
     //rect(x_3, y_3-marker_range, point_size, point_size);
     //rect(x_4, y_4-marker_range, point_size, point_size);
     //rect(x_5, y_5-marker_range, point_size, point_size);
-    //rect(x_6, y_6-marker_range, point_size, point_size);
+    //rect(x_6, y_6-marker_range, point_size, point_size);nx
     //rect(x_tuto, y_tuto-marker_range, point_size, point_size);
     //image(images[1], x_1, y_1, point_size, point_size);
     //image(images[2], x_2, y_2, point_size, point_size);
-    //image(images[3], x_3, y_3, point_size, point_size);
+    //image(images[3], x_3, y_3, pointn _size, point_size);
     //image(images[4], x_4, y_4-marker_range, point_size, point_size);
     //image(images[5], x_5, y_5-marker_range, point_size, point_size);
     //image(images[6], x_6, y_6-marker_range, point_size, point_size);
